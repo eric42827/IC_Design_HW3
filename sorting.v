@@ -16,9 +16,48 @@ module sorting(rank0, rank1, rank2, rank3, rank4, i0, i1, i2, i3, i4);
 	Comp comp7(G[7], E[7], i2, i3);
 	Comp comp8(G[8], E[8], i2, i4);
 	Comp comp9(G[9], E[9], i3, i4);
+	//rank0
+	wire [5:0]a, b, c, d, e;
+	Rank1 R0(a, G[0], G[1], G[2], G[3], i0);
 	
 
+	Sum sum0(rank0, a, b, c, d, e);
 endmodule
+
+module Rank1(C, G, I);//C=G*I (6bit)
+	input [3:0]G;
+	input [5:0]I;
+	output [5:0]C;
+	AN5 nd0(C[0],G,I[0]);
+	AN5 nd1(C[1],G,I[1]);
+	AN5 nd2(C[2],G,I[2]);
+	AN5 nd3(C[3],G,I[3]);
+	AN5 nd4(C[4],G,I[4]);
+	AN5 nd5(C[5],G,I[5]);
+endmodule
+
+module AN5(W,G,I);
+	input [3:0]G;
+	input I;
+	output W;
+	wire [1:0]w;
+	ND2 nd2(w[0], G[0], I);
+	ND3 nd3(w[1], G[1], G[2], G[3]);
+	NR2 nr2(R[0], w[0], w[1]);
+endmodule
+
+module Sum(R, A, B, C, D, E);
+input [5:0]A, B, C, D, E;
+output [5:0]R;
+
+endmodule
+
+module OR5(W, A, B, C, D, E);
+input A, B, C, D, E;
+output W;
+
+endmodule
+
 
 module Comp1(G, E, A, B);
 	output G, E;
